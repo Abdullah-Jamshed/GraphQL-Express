@@ -14,8 +14,8 @@ app.use("/graphql", graphqlHTTP({ schema: UserSchema, graphiql: true }));
 
 app.get("/users", async (req, res) => {
   try {
-    const query = `query{ user{ id, name, age} }`;
-    const response = await graphql(UserSchema, "{users{id,name,age}}", query);
+    const query = `query{ users{ id, firstName, lastName, email, password} }`;
+    const response = await graphql(UserSchema, "{users{id,firstName, lastName, email, password}}", query);
     res.json(response);
   } catch (error) {
     res.json({ errorMsg: error });
@@ -24,7 +24,7 @@ app.get("/users", async (req, res) => {
 
 app.get("/user/:id", async (req, res) => {
   try {
-    const query = `query{user(id:${req.params.id}){ id, name, age} }`;
+    const query = `query{user(id:${req.params.id}){ id,firstName, lastName, email, password} }`;
     const response = await graphql(UserSchema, query);
     res.json(response);
   } catch (error) {
@@ -33,10 +33,17 @@ app.get("/user/:id", async (req, res) => {
 });
 
 app.post("/user", async (req, res) => {
-  const { name, age } = req.body;
+  const { firstName, lastName, email, password } = req.body;
   console.log(req.body);
   try {
-    const mutation = `mutation{ createUser(name:"${name}", age:${age}){ name,age }}`;
+    const mutation = `mutation { 
+      createUser(firstName:"${firstName}", lastName:"${lastName}", email:"${email}", password:"${password}"){ 
+        firstName,
+        lastName,
+        email,
+        password 
+      }
+    }`;
     const response = await graphql(UserSchema, mutation);
     res.json(response);
   } catch (error) {

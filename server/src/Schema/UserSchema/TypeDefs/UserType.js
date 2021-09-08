@@ -5,8 +5,11 @@ const UserType = new GraphQLObjectType({
   description: "...",
   fields: {
     id: { type: GraphQLInt },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    email: { type: GraphQLString },
+    password: { type: GraphQLString },
     name: { type: GraphQLString },
-    age: { type: GraphQLInt },
   },
 });
 

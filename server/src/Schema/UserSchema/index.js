@@ -2,15 +2,9 @@ const { query } = require("express");
 const express = require("express");
 const { GraphQLSchema, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLInt } = require("graphql");
 
-const users = [
-  { id: 1, age: 2, name: "Abdullah" },
-  { id: 2, age: 4, name: "Jamshed" },
-  { id: 3, age: 6, name: "Zia" },
-  { id: 4, age: 4, name: "Khan" },
-  { id: 5, age: 3, name: "Ahmed" },
-];
-
 const UserType = require("./TypeDefs/UserType.js");
+
+const users = require("../../dummyData/index.json");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQuery",
@@ -38,17 +32,22 @@ const Mutation = new GraphQLObjectType({
     createUser: {
       type: UserType,
       args: {
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
         name: { type: GraphQLString },
-        age: { type: GraphQLInt },
       },
-      resolve: (parent, { name, age }) => {
+      resolve: (parent, { firstName, lastName, email, password }) => {
         const id = users.length + 1;
         users.push({
           id,
-          name,
-          age,
+          firstName,
+          lastName,
+          email,
+          password,
         });
-        return { id, name, age };
+        return { id, firstName, lastName, email, password };
       },
     },
   },
