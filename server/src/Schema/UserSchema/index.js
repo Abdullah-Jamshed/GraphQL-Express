@@ -1,4 +1,4 @@
-const { GraphQLSchema, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLInt } = require("graphql")
+const { GraphQLSchema, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLInt } = require("graphql");
 
 const UserType = require("./TypeDefs/UserType.js");
 
@@ -10,7 +10,12 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     users: {
       type: new GraphQLList(UserType),
-      resolve: (parent, args) => users,
+      args: { first: { type: GraphQLInt }, currentPage: { type: GraphQLInt } },
+      // resolve: (parent, args) => users,
+      resolve: (parent, { currentPage, first }) => {
+        const data = users.slice(currentPage * first, currentPage * first + first);
+        return data;
+      },
     },
     user: {
       type: UserType,
