@@ -25,6 +25,12 @@ const RootQuery = new GraphQLObjectType({
         return user[0];
       },
     },
+    total: {
+      type: GraphQLInt,
+      resolve: (parent, args) => {
+        return users.length;
+      },
+    },
   },
 });
 

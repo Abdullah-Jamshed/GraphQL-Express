@@ -11,6 +11,12 @@ export const LOAD_USERS = gql`
   }
 `;
 
+export const COUNT = gql`
+   query {
+     total
+   }
+`;
+
 // export const LOAD_USERS = gql`
 //   query {
 //     users {
