@@ -1,6 +1,4 @@
-const { query } = require("express");
-const express = require("express");
-const { GraphQLSchema, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLInt } = require("graphql");
+const { GraphQLSchema, GraphQLList, GraphQLObjectType, GraphQLString, GraphQLInt } = require("graphql")
 
 const UserType = require("./TypeDefs/UserType.js");
 
