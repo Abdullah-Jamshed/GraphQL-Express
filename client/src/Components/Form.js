@@ -25,7 +25,7 @@ function Form() {
     }
   };
   return (
-    <div>
+    <div className="inp">
       <input
         type="text"
         placeholder="First Name"
